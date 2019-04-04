@@ -599,7 +599,10 @@ angular.module('myApp.controllers', ['myApp.i18n'])
       $scope.$broadcast('search_clear')
     }
 
-    $scope.dialogSelect = function (peerString, messageID) {
+    $scope.dialogSelect = function (dialogMessage, messageID) {
+      var peerString = dialogMessage.peerString
+      console.log('======> DIALOG', dialogMessage)
+      console.log('======> DIALOG SELECT', peerString, messageID)
       var params = {peerString: peerString}
       if (messageID) {
         params.messageID = messageID
@@ -607,6 +610,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
         $scope.searchClear()
       }
       var peerID = AppPeersManager.getPeerID(peerString)
+      console.log("=======>", peerID)
       var converted = AppMessagesManager.convertMigratedPeer(peerID)
       if (converted) {
         params.peerString = AppPeersManager.getPeerString(converted)
@@ -694,10 +698,19 @@ angular.module('myApp.controllers', ['myApp.i18n'])
   })
 
   .controller('AppImDialogsController', function ($scope, $location, $q, $timeout, $routeParams, MtpApiManager, AppUsersManager, AppChatsManager, AppMessagesManager, AppProfileManager, AppPeersManager, PhonebookContactsService, ErrorService, AppRuntimeManager) {
+    $scope.telefuelGroupsPeerIDs = [-1274288742]
+    $scope.telefuelDMPeerIDs = [435558373]
     $scope.dialogs = []
     $scope.myResults = []
     $scope.foundPeers = []
     $scope.foundMessages = []
+
+    $scope.filterTelefuelGroups = function(dialogMessage) {
+      return $scope.telefuelGroupsPeerIDs.includes(dialogMessage.peerID)
+    }
+    $scope.filterTelefuelDMs = function(dialogMessage) {
+      return $scope.telefuelDMPeerIDs.includes(dialogMessage.peerID)
+    }
 
     if ($scope.search === undefined) {
       $scope.search = {}

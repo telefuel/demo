@@ -45,6 +45,7 @@ angular.module('myApp', [
 
   $routeProvider.when('/', {template: '', controller: 'AppWelcomeController'})
   $routeProvider.when('/login', {templateUrl: templateUrl('login'), controller: 'AppLoginController'})
+  $routeProvider.when('/telefuel', {templateUrl: templateUrl('im-telefuel'), controller: 'AppIMController', reloadOnSearch: false})
   $routeProvider.when('/im', {templateUrl: templateUrl('im'), controller: 'AppIMController', reloadOnSearch: false})
   $routeProvider.otherwise({redirectTo: '/'})
 }])

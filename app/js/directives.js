@@ -35,6 +35,12 @@ angular.module('myApp.directives', ['myApp.filters'])
     }
   })
 
+  .directive('tfDialog', function () {
+    return {
+      restrict: 'AE',
+      templateUrl: templateUrl('tf_dialog')
+    }
+  })
   .directive('myDialog', function () {
     return {
       restrict: 'AE',

@@ -270,6 +270,7 @@ angular.module('myApp.services')
       }, {
         timeout: 300
       }).then(function (dialogsResult) {
+        console.log('=====> DIALOG', dialogsResult)
         if (!offsetDate) {
           TelegramMeWebService.setAuthorized(true)
         }

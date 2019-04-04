@@ -1,13 +1,13 @@
 <div class="tf_sidebar">
   <div class="tf_sidebar--inner">
-    <div class="tf_sidebar--item active">
+    <div class="tf_sidebar--item">
       <div class="tf_sidebar--icon">
         <a href="/app/index.html#/im" class="tf_sidebar--home">
           <img ng-src="img/home.svg" class="tf_sidebar--icon" />
         </a>
       </div>
     </div>
-    <div class="tf_sidebar--item">
+    <div class="tf_sidebar--item active">
       <div class="tf_sidebar--icon" style="background-color: white !important;">
         <a href="/app/index.html#/telefuel" class="tf_sidebar--home" style="margin-left: 2px">
           <img ng-src="img/telefuel.svg" style="margin-top: 6px" />
@@ -24,15 +24,6 @@
     <div class="im_page_split clearfix">
 
       <div class="im_dialogs_col_wrap noselect" ng-controller="AppImDialogsController" my-dialogs ng-class="search.query.length > 0 ? 'im_dialogs_col_search' : ''">
-        <div class="im_dialogs_panel">
-          <div class="im_dialogs_search">
-            <input class="form-control im_dialogs_search_field no_outline" type="search" placeholder="{{'modal_search' | i18n}}" ng-model="search.query" autocomplete="off" />
-            <a class="im_dialogs_search_clear tg_search_clear" ng-click="searchClear()" ng-show="search.query.length">
-              <i class="icon icon-search-clear"></i>
-            </a>
-          </div>
-        </div>
-
         <div my-dialogs-list class="im_dialogs_col">
           <div class="im_dialogs_wrap nano">
             <div class="im_dialogs_scrollable_wrap nano-content">
@@ -44,36 +35,45 @@
                 <button ng-if="phonebookAvailable" type="button" class="btn btn-primary btn-sm im_dialogs_import_phonebook" ng-click="importPhonebook()" my-i18n="im_import_phonebook"></button>
               </div>
 
-              <ul class="nav nav-pills nav-stacked">
-                <li class="im_dialog_wrap" ng-if="searchPeer">
-                  <a class="im_dialog im_dialog_searchpeer disabled" ng-mousedown="setSearchPeer()">
+              <div class="im_dialogs_contacts_wrap"i ng-show="!searchPeer && myResults.length == 0 && foundPeers.length == 0 && foundMessages.length == 0">
+                <h5 my-i18n="im_groups"></h5>
+                <ul class="nav nav-pills nav-stacked">
+                  <li class="im_dialog_wrap" ng-if="searchPeer">
+                    <a class="im_dialog im_dialog_searchpeer disabled" ng-mousedown="setSearchPeer()">
 
-                    <div class="im_dialog_meta pull-right">
-                      <div class="im_dialog_clear_searchpeer">
-                        <!-- <i class="icon icon-clear-searchpeer"></i> -->
-                        <i class="icon icon-search-clear"></i>
-                      </div>
-                    </div>
-
-                    <div class="im_dialog_photo pull-left" my-peer-photolink="searchPeer" img-class="im_dialog_photo" watch="true" for-dialog="true"></div>
-
-                    <div class="im_dialog_message_wrap">
-
-                      <div class="im_dialog_peer">
-                        <span my-peer-link="searchPeer" for-dialog="true"></span>
+                      <div class="im_dialog_meta pull-right">
+                        <div class="im_dialog_clear_searchpeer">
+                          [> <i class="icon icon-clear-searchpeer"></i> <]
+                          <i class="icon icon-search-clear"></i>
+                        </div>
                       </div>
 
-                      <div class="im_dialog_message">
-                        <span class="" my-i18n="conversation_search_peer"></span>
+                      <div class="im_dialog_photo pull-left" my-peer-photolink="searchPeer" img-class="im_dialog_photo" watch="true" for-dialog="true"></div>
+
+                      <div class="im_dialog_message_wrap">
+
+                        <div class="im_dialog_peer">
+                          <span my-peer-link="searchPeer" for-dialog="true"></span>
+                        </div>
+
+                        <div class="im_dialog_message">
+                          <span class="" my-i18n="conversation_search_peer"></span>
+                        </div>
+
                       </div>
 
-                    </div>
+                    </a>
 
-                  </a>
-
-                </li>
-                <li class="im_dialog_wrap" my-dialog dialog-message="dialogMessage" ng-repeat="dialogMessage in dialogs track by dialogMessage.peerID" ng-class="{active: curDialog.peerID == dialogMessage.peerID}"></li>
-              </ul>
+                  </li>
+                  <li class="im_dialog_wrap" tf-dialog dialog-message="dialogMessage" ng-repeat="dialogMessage in dialogs | filter:filterTelefuelGroups track by dialogMessage.peerID"  ng-class="{active: curDialog.peerID == dialogMessage.peerID}"></li>
+                </ul>
+              </div>
+              <div class="im_dialogs_contacts_wrap mt-5">
+                <h5 my-i18n="im_dms"></h5>
+                <ul class="nav nav-pills nav-stacked">
+                  <li class="im_dialog_wrap" tf-dialog dialog-message="dialogMessage" ng-repeat="dialogMessage in dialogs | filter:filterTelefuelDMs track by dialogMessage.peerID"  ng-class="{active: curDialog.peerID == dialogMessage.peerID}"></li>
+                </ul>
+              </div>
 
               <div class="im_dialogs_contacts_wrap" ng-show="myResults.length > 0">
                 <h5 my-i18n="im_chat_contacts_title"></h5>
@@ -257,3 +257,4 @@
   </div>
 
 </div>
+

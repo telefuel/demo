@@ -114,7 +114,7 @@ self.addEventListener('message', function(event) {
 function fireNotification(obj, settings, lang) {
   var title = obj.title || 'Telegram'
   var body = obj.description || ''
-  var icon = 'img/logo_share.png'
+  var icon = 'img/logo_shareapng'
   var peerID
 
   if (obj.custom && obj.custom.channel_id) {
