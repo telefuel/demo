@@ -1131,11 +1131,11 @@ angular.module('myApp.directives', ['myApp.filters'])
           footerHeight++ // Border bottom
         }
         $(element).css({
-          height: $($window).height() -
-            footerHeight -
-            (headWrap ? headWrap.offsetHeight : 48) -
-            (panelWrap ? panelWrap.offsetHeight : 58) -
-            parseInt($(dialogsColWrap).css('paddingBottom') || 0)
+          height: $($window).height() - 48 - 10
+            // footerHeight -
+            // (headWrap ? headWrap.offsetHeight : 48) -
+            // (panelWrap ? panelWrap.offsetHeight : 58) -
+            // parseInt($(dialogsColWrap).css('paddingBottom') || 0)
         })
 
         updateScroller()
@@ -3523,6 +3523,7 @@ angular.module('myApp.directives', ['myApp.filters'])
       }
 
       $scope.$watch(attrs.myPeerPhotolink, setPeerID)
+      console.log('======> USER PHOTO', attrs.myPeerPhotolink)
       setPeerID($scope.$eval(attrs.myPeerPhotolink))
 
       if (attrs.watch) {

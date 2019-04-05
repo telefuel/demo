@@ -486,7 +486,11 @@ angular.module('myApp.controllers', ['myApp.i18n'])
           pendingAttachment = peerData.attachment
         }
         if ($routeParams.p != peer) {
-          $location.url('/im?p=' + peer)
+          if ($location.path() === '/telefuel') {
+            $location.url('/telefuel?p=' + peer)
+          } else {
+            $location.url('/im?p=' + peer)
+          }
         } else {
           updateCurDialog()
         }
@@ -601,8 +605,6 @@ angular.module('myApp.controllers', ['myApp.i18n'])
 
     $scope.dialogSelect = function (dialogMessage, messageID) {
       var peerString = dialogMessage.peerString
-      console.log('======> DIALOG', dialogMessage)
-      console.log('======> DIALOG SELECT', peerString, messageID)
       var params = {peerString: peerString}
       if (messageID) {
         params.messageID = messageID
@@ -610,7 +612,6 @@ angular.module('myApp.controllers', ['myApp.i18n'])
         $scope.searchClear()
       }
       var peerID = AppPeersManager.getPeerID(peerString)
-      console.log("=======>", peerID)
       var converted = AppMessagesManager.convertMigratedPeer(peerID)
       if (converted) {
         params.peerString = AppPeersManager.getPeerString(converted)
@@ -655,7 +656,11 @@ angular.module('myApp.controllers', ['myApp.i18n'])
       $scope.$broadcast('dialogs_search_toggle')
     }
 
-    updateCurDialog()
+    // HACK - Get user image to appear in topbar
+    AppUsersManager.promise.then(function(id) {
+      $scope.ownID = id
+      updateCurDialog()
+    })
 
     function updateCurDialog () {
       $modalStack.dismissAll()

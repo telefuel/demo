@@ -45,7 +45,15 @@ angular.module('myApp', [
 
   $routeProvider.when('/', {template: '', controller: 'AppWelcomeController'})
   $routeProvider.when('/login', {templateUrl: templateUrl('login'), controller: 'AppLoginController'})
-  $routeProvider.when('/telefuel', {templateUrl: templateUrl('im-telefuel'), controller: 'AppIMController', reloadOnSearch: false})
+  $routeProvider.when('/telefuel', {templateUrl: templateUrl('im-telefuel'), controller: 'AppIMController', reloadOnSearch: false,
+    // resolve: {
+    //   'AppUsersManager': function(AppUsersManager){
+    //     console.log('======> APPUSERSMANAGER', AppUsersManager)
+    //     // MyServiceData will also be injectable in your controller, if you don't want this you could create a new promise with the $q service
+    //     return AppUsersManager.promise;
+    //   }
+    // }
+  })
   $routeProvider.when('/im', {templateUrl: templateUrl('im'), controller: 'AppIMController', reloadOnSearch: false})
   $routeProvider.otherwise({redirectTo: '/'})
 }])

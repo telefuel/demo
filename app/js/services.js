@@ -21,8 +21,9 @@ angular.module('myApp.services', ['myApp.i18n', 'izhukov.utils'])
     var contactsList
     var myID
 
-    MtpApiManager.getUserID().then(function (id) {
+    var promise = MtpApiManager.getUserID().then(function (id) {
       myID = id
+      return id
     })
 
     function fillContacts () {
@@ -485,6 +486,7 @@ angular.module('myApp.services', ['myApp.i18n', 'izhukov.utils'])
     $rootScope.$on('stateSynchronized', updateUsersStatuses)
 
     return {
+      promise: promise,
       getContacts: getContacts,
       saveApiUsers: saveApiUsers,
       saveApiUser: saveApiUser,
