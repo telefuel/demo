@@ -37,7 +37,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
 
     MtpApiManager.getUserID().then(function (id) {
       if (id) {
-        $location.url('/im')
+        $location.url('/telefuel')
         return
       }
       if (location.protocol == 'http:' &&
@@ -604,6 +604,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
     }
 
     $scope.dialogSelect = function (dialogMessage, messageID) {
+      console.log('=====> SELECTING DIALOG', dialogMessage)
       var peerString = dialogMessage.peerString
       var params = {peerString: peerString}
       if (messageID) {
@@ -703,18 +704,40 @@ angular.module('myApp.controllers', ['myApp.i18n'])
   })
 
   .controller('AppImDialogsController', function ($scope, $location, $q, $timeout, $routeParams, MtpApiManager, AppUsersManager, AppChatsManager, AppMessagesManager, AppProfileManager, AppPeersManager, PhonebookContactsService, ErrorService, AppRuntimeManager) {
-    $scope.telefuelGroupsPeerIDs = [-1274288742]
-    $scope.telefuelDMPeerIDs = [435558373]
+    AppUsersManager.promise.then(function(myID) {
+      $scope.telefuelGroupsPeerIDs = [{name: 'Telefuel', id: -1274288742}]
+      var telefuelDMPeers = [{name: 'avt301', id: 435558373}, {name: 'mattnguyen', id: 482111897}]
+      telefuelDMPeers = telefuelDMPeers.filter(function(peer) {
+        return peer.id != myID
+      })
+      $scope.telefuelDMPeerIDs = telefuelDMPeers
+    })
+
     $scope.dialogs = []
     $scope.myResults = []
     $scope.foundPeers = []
     $scope.foundMessages = []
+    $scope.foundPinnedPeers = []
 
+    $scope.filterTelefuelGroupPeers = function(foundPeer) {
+      return $scope.telefuelGroupsPeerIDs.some(function(peer) {
+        return peer.id === foundPeer.id
+      })
+    }
     $scope.filterTelefuelGroups = function(dialogMessage) {
-      return $scope.telefuelGroupsPeerIDs.includes(dialogMessage.peerID)
+      return $scope.telefuelGroupsPeerIDs.some(function(peer) {
+        return peer.id === dialogMessage.peerID
+      })
+    }
+    $scope.filterTelefuelDMPeers = function(foundPeer) {
+      return $scope.telefuelDMPeerIDs.some(function(peer) {
+        return peer.id === foundPeer.peerID
+      })
     }
     $scope.filterTelefuelDMs = function(dialogMessage) {
-      return $scope.telefuelDMPeerIDs.includes(dialogMessage.peerID)
+      return $scope.telefuelDMPeerIDs.some(function(peer) {
+        return peer.id === dialogMessage.peerID
+      })
     }
 
     if ($scope.search === undefined) {
@@ -947,6 +970,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
       } else {
         searchMessages = false
       }
+        console.log("=====> LOADING DIALOGS")
       loadDialogs(true)
     }
 
@@ -1002,6 +1026,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
       if ($scope.noUsers) {
         query = '%pg ' + query
       }
+      console.log('=====> GET CONVERSATIONS', query)
       return AppMessagesManager.getConversations(query, offsetIndex).then(function (result) {
         if (curJump != jump) {
           return $q.reject()
@@ -1074,21 +1099,66 @@ angular.module('myApp.controllers', ['myApp.i18n'])
             delete $scope.isEmpty.dialogs
           }
           hasMore = true
+
+          if (!searchMessages) {
+            var missingPeers = []
+            var findMissingPeers = function findMissingPeers(peer) {
+              var inList = dialogsList.some(function(dialog) {
+                return dialog.peerID == peer.id
+              })
+              if (!inList) {
+                missingPeers.push(peer)
+              }
+            }
+            $scope.telefuelGroupsPeerIDs.forEach(findMissingPeers)
+            $scope.telefuelDMPeerIDs.forEach(findMissingPeers)
+
+            // insert find conversation logic
+            // merge with dialogs
+
+            console.log('=====> MISSING PEERS', missingPeers)
+            missingPeers.forEach(function(peer) {
+              console.log('=====> FINDING PEER', peer)
+              MtpApiManager.invokeApi('contacts.search', {q: peer.name, limit: 10}).then(function (result) {
+                AppUsersManager.saveApiUsers(result.users)
+                AppChatsManager.saveApiChats(result.chats)
+                $scope.foundPinnedPeers = []
+                angular.forEach(result.results, function (peerFound) {
+                  var peerID = AppPeersManager.getPeerID(peerFound)
+                  if (peerID === peer.id) {
+                    console.log('=====> FOUND MISSING PEER', peerID)
+                    // CREATE DIALOG AND PUSH HERE
+                    $scope.foundPinnedPeers.push({
+                      id: peerID,
+                      username: AppPeersManager.getPeer(peerID).username,
+                      peerString: AppUsersManager.getUserString(peerID)
+                    })
+                  }
+                })
+              }, function (error) {
+                if (error.code == 400) {
+                  error.handled = true
+                }
+              })
+            })
+          }
         } else {
           hasMore = false
         }
 
         $scope.$broadcast('ui_dialogs_change')
 
-        if (!$scope.search.query) {
-          AppMessagesManager.getConversations('', offsetIndex, 100)
-          if (!dialogsResult.dialogs.length) {
-            $scope.isEmpty.dialogs = true
-            showMoreDialogs()
-          }
-        } else {
-          showMoreDialogs()
-        }
+        // if (!$scope.search.query) {
+        //   console.log('=====> GET CONVERSATIONS AGAIN')
+        //   AppMessagesManager.getConversations('', offsetIndex, 100)
+        //   if (!dialogsResult.dialogs.length) {
+        //     $scope.isEmpty.dialogs = true
+        //     showMoreDialogs()
+        //   }
+        // } else {
+        //   console.log('=====> SHOW MORE DIALOGS')
+        //   showMoreDialogs()
+        // }
       })
     }
 
