@@ -731,7 +731,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
     }
     $scope.filterTelefuelDMPeers = function(foundPeer) {
       return $scope.telefuelDMPeerIDs.some(function(peer) {
-        return peer.id === foundPeer.peerID
+        return peer.id === foundPeer.id
       })
     }
     $scope.filterTelefuelDMs = function(dialogMessage) {
@@ -1113,16 +1113,13 @@ angular.module('myApp.controllers', ['myApp.i18n'])
             $scope.telefuelGroupsPeerIDs.forEach(findMissingPeers)
             $scope.telefuelDMPeerIDs.forEach(findMissingPeers)
 
-            // insert find conversation logic
-            // merge with dialogs
-
             console.log('=====> MISSING PEERS', missingPeers)
+            $scope.foundPinnedPeers = []
             missingPeers.forEach(function(peer) {
               console.log('=====> FINDING PEER', peer)
               MtpApiManager.invokeApi('contacts.search', {q: peer.name, limit: 10}).then(function (result) {
                 AppUsersManager.saveApiUsers(result.users)
                 AppChatsManager.saveApiChats(result.chats)
-                $scope.foundPinnedPeers = []
                 angular.forEach(result.results, function (peerFound) {
                   var peerID = AppPeersManager.getPeerID(peerFound)
                   if (peerID === peer.id) {
@@ -1132,6 +1129,17 @@ angular.module('myApp.controllers', ['myApp.i18n'])
                       id: peerID,
                       username: AppPeersManager.getPeer(peerID).username,
                       peerString: AppUsersManager.getUserString(peerID)
+                    })
+                  }
+                })
+                angular.forEach(result.users, function (user) {
+                  if (user.id === peer.id) {
+                    console.log('=====> FOUND MISSING USER', peer)
+                    // CREATE DIALOG AND PUSH HERE
+                    $scope.foundPinnedPeers.push({
+                      id: user.id,
+                      username: user.username,
+                      peerString: AppUsersManager.getUserString(user.id)
                     })
                   }
                 })
