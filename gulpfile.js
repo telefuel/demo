@@ -207,8 +207,8 @@ gulp.task('add-appcache-manifest', ['build'], function () {
       timestamp: false,
       hash: true,
       network: ['http://*', 'https://*', '*'],
-      filename: 'webogram.appcache',
-      exclude: ['webogram.appcache', 'app.manifest']
+      filename: 'telefuel-demo.appcache',
+      exclude: ['telefuel-demo.appcache', 'app.manifest']
     })
   )
     .pipe(gulp.dest('./dist'))

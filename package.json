@@ -39,7 +39,7 @@
     "nl-nl",
     "pt-br"
   ],
-  "homepage": "http://zhukov.github.io/webogram",
+  "homepage": "https://telefuel.co",
   "devDependencies": {
     "del": "^1.2.0",
     "event-stream": "~3.1.0",
