@@ -21,7 +21,7 @@ Config.App = {
   id: 758277,
   hash: 'b9b56e9b3f56f5d1b6c70401f30687da',
   version: '0.7.0',
-  domains: ['demo.telefuel.co']
+  domains: ['demo.telefuel.co', 'chainfuel.github.io']
 }
 
 Config.Modes = {

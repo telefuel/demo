@@ -1,6 +1,6 @@
 {
-  "name": "Telegram",
-  "description": "Telegram Web App.\nMore info & source code here: https://github.com/zhukov/webogram",
+  "name": "telefuel-demo",
+  "description": "Telefuel - Discord-style workspaces for Telegram.",
   "version": "0.7.0",
   "main": "app/index.html",
   "single-instance": true,
@@ -26,13 +26,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zhukov/webogram.git"
+    "url": "https://github.com/chainfuel/telefuel-demo.git"
   },
-  "author": "zhukov",
+  "author": "chainfuel",
   "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/zhukov/webogram/issues"
-  },
   "locales": [
     "en-us",
     "es-es",

@@ -10,6 +10,9 @@ switch (location.hostname) {
   case 'localhost':
     defaultBaseUrl = 'http://localhost:8000/app/index.html#/im'
     break
+  case 'chainfuel.github.io':
+    defaultBaseUrl = 'https://chainfuel.github.io/telefuel-demo/#/im'
+    break
   case 'demo.telefuel.co':
     defaultBaseUrl = 'https://' + location.hostname + '/#/im'
 }
