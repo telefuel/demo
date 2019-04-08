@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" manifest="webogram.appcache" ng-csp="" xmlns:ng="http://angularjs.org" id="ng-app" style="display: none;">
+<html lang="en"ng-csp="" xmlns:ng="http://angularjs.org" id="ng-app" style="display: none;">
 <head>
   <!--[if lte IE 9]>
   <meta HTTP-EQUIV="REFRESH" content="0; url=badbrowser.html">
@@ -43,7 +43,7 @@
 </head>
 <body>
 
-  <div class="page_wrap d-flex justify-content-center flex-row" ng-view></div>
+  <div class="page_wrap" ng-view></div>
 
   <div id="notify_sound"></div>
 
@@ -60,6 +60,7 @@
   <script type="text/javascript" src="vendor/angular/angular-animate.js"></script>
   <script type="text/javascript" src="vendor/angular/angular-sanitize.js"></script>
   <script type="text/javascript" src="vendor/angular/angular-touch.js"></script>
+  <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="vendor/ui-bootstrap/ui-bootstrap-custom-tpls-0.12.0.js"></script>
   <script type="text/javascript" src="vendor/angular-media-player/angular-media-player.js"></script>
 

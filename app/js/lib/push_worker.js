@@ -4,14 +4,13 @@ var pendingNotification = false
 
 var defaultBaseUrl
 switch (location.hostname) {
+  case 'telefuel.ngrok.io':
+    defaultBaseUrl = 'http://telefuel.ngrok.io/app/index.html#/im'
+    break
   case 'localhost':
     defaultBaseUrl = 'http://localhost:8000/app/index.html#/im'
     break
-  case 'zhukov.github.io':
-    defaultBaseUrl = 'https://zhukov.github.io/webogram/#/im'
-    break
-  default:
-  case 'web.telegram.org':
+  case 'demo.telefuel.co':
     defaultBaseUrl = 'https://' + location.hostname + '/#/im'
 }
 
