@@ -1,6 +1,6 @@
 {
-  "name": "Telegram",
-  "description": "Telegram Web App.\nMore info & source code here: https://github.com/zhukov/webogram",
+  "name": "telefuel-demo",
+  "description": "Discord-style workspaces for Telegram",
   "version": "0.7.0",
   "short_name": "Telegram",
   "manifest_version": 2,
