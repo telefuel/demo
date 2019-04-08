@@ -455,6 +455,9 @@ angular.module('myApp.controllers', ['myApp.i18n'])
   })
 
   .controller('AppIMController', function ($q, qSync, $scope, $location, $routeParams, $modal, $rootScope, $modalStack, MtpApiManager, AppUsersManager, AppChatsManager, AppMessagesManager, AppPeersManager, ContactsSelectService, ChangelogNotifyService, ErrorService, AppRuntimeManager, HttpsMigrateService, LayoutSwitchService, LocationParamsService, AppStickersManager) {
+    $rootScope.transitionTo = function(path) {
+      $location.path(path);
+    }
     $scope.$on('$routeUpdate', updateCurDialog)
     $scope.currentRoute = $location.path().slice(1)
 
