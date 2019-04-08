@@ -1,37 +1,37 @@
 <div class="d-flex justify-content-center flex-row">
   <div class="tf_sidebar">
     <div class="tf_sidebar--inner">
-      <div class="tf_sidebar--item active">
+      <div class="tf_sidebar--item">
         <div class="tf_sidebar--icon" tooltip="Home">
-          <a href="/app/index.html#/im" class="tf_sidebar--home">
+          <a ng-click="transitionTo('im')" class="tf_sidebar--home">
             <img ng-src="img/home.svg" class="tf_sidebar--icon" alt="Home" />
           </a>
         </div>
       </div>
       <div ng-class="['tf_sidebar--item', {active: currentRoute == 'telefuel'}]">
         <div class="tf_sidebar--icon" style="background-color: white !important;" tooltip="Telefuel Workspace">
-          <a href="/app/index.html#/telefuel" class="tf_sidebar--home" style="margin-left: 2px">
+          <a ng-click="transitionTo('telefuel')" class="tf_sidebar--home" style="margin-left: 2px">
             <img ng-src="img/icons/telefuel-logo.jpg" class="sidebar--icon" alt="Telefuel Workspace" />
           </a>
         </div>
       </div>
       <div ng-class="['tf_sidebar--item', {active: currentRoute == 'defi'}]">
         <div class="tf_sidebar--icon tf_sidebar--defi" tooltip="DeFi Workspace">
-          <a href="/app/index.html#/defi" class="tf_sidebar--home">
+          <a ng-click="transitionTo('defi')" class="tf_sidebar--home">
             #DeFi
           </a>
         </div>
       </div>
       <div ng-class="['tf_sidebar--item', {active: currentRoute == 'investments'}]">
-        <div class="tf_sidebar--icon" style="background-color: white !important;padding: 18px 8px;" tooltip="Investments Workspace">
-          <a href="/app/index.html#/investments" class="tf_sidebar--home" style="font-size: 34px;text-decoration: none;">
+        <div class="tf_sidebar--icon" style="background-color: white !important; padding: 18px 8px;" tooltip="Investments Workspace">
+          <a ng-click="transitionTo('investments')" class="tf_sidebar--home" style="font-size: 34px;text-decoration: none;">
             🤑
           </a>
         </div>
       </div>
       <div ng-class="['tf_sidebar--item', {active: currentRoute == 'personal'}]">
         <div class="tf_sidebar--icon" style="background-color: white !important;" tooltip="Personal Workspace">
-          <a href="/app/index.html#/personal" class="tf_sidebar--home">
+          <a ng-click="transitionTo('personal')" class="tf_sidebar--home">
             <img ng-src="img/personal.png" class="sidebar--icon" alt="Telefuel Workspace" />
           </a>
         </div>
