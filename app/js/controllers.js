@@ -456,6 +456,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
 
   .controller('AppIMController', function ($q, qSync, $scope, $location, $routeParams, $modal, $rootScope, $modalStack, MtpApiManager, AppUsersManager, AppChatsManager, AppMessagesManager, AppPeersManager, ContactsSelectService, ChangelogNotifyService, ErrorService, AppRuntimeManager, HttpsMigrateService, LayoutSwitchService, LocationParamsService, AppStickersManager) {
     $scope.$on('$routeUpdate', updateCurDialog)
+    $scope.currentRoute = $location.path().slice(1)
 
     $scope.openSearchModal = function(type) {
       $modal.open({
@@ -503,6 +504,12 @@ angular.module('myApp.controllers', ['myApp.i18n'])
         if ($routeParams.p != peer) {
           if ($location.path() === '/telefuel') {
             $location.url('/telefuel?p=' + peer)
+          } else if ($location.path() === '/personal') {
+            $location.url('/personal?p=' + peer)
+          } else if ($location.path() === '/investments') {
+            $location.url('/investments?p=' + peer)
+          } else if ($location.path() === '/defi') {
+            $location.url('/defi?p=' + peer)
           } else {
             $location.url('/im?p=' + peer)
           }
@@ -1350,8 +1357,22 @@ angular.module('myApp.controllers', ['myApp.i18n'])
   })
 
   .controller('AppTFDialogsController', function ($modal, $scope, $location, $q, $timeout, $routeParams, MtpApiManager, AppUsersManager, AppChatsManager, AppMessagesManager, AppProfileManager, AppPeersManager, PhonebookContactsService, ErrorService, AppRuntimeManager) {
+    var currentRoute = $location.path().slice(1)
+    switch (currentRoute) {
+      case 'telefuel':
+        $scope.telefuelGroupsPeerIDs = [{name: 'Telefuel', id: -1274288742}, {name: 'Telefuel Announcements', id: -1494504542}, {name: 'Telefuel Partners', id: -1484357511}]
+        break
+      case 'personal':
+        $scope.telefuelGroupsPeerIDs = [{name: 'Telefuel', id: -1274288742}, {name: 'depfi', id: -1424624126}, {name: 'de_fi', id: -1343577910}, {name: 'kybernetwork', id: -1317248630}, {name: 'reservecurrency', id: -1277094086}, {name: 'binanceexchange', id: -1146170349}, {name: 'OntologyNetwork', id: -1232812654}]
+        break
+      case 'defi':
+        $scope.telefuelGroupsPeerIDs = [{name: 'depfi', id: -1424624126}, {name: 'de_fi', id: -1343577910}, {name: 'kybernetwork', id: -1317248630}]
+        break
+      case 'investments':
+        $scope.telefuelGroupsPeerIDs = [{name: 'depfi', id: -1424624126}, {name: 'kybernetwork', id: -1317248630}, {name: 'OntologyNetwork', id: -1232812654}, {name: 'reservecurrency', id: -1277094086}]
+    }
+
     AppUsersManager.promise.then(function(myID) {
-      $scope.telefuelGroupsPeerIDs = [{name: 'Telefuel', id: -1274288742}]
       var telefuelDMPeers = [{name: 'avt301', id: 435558373}, {name: 'mattnguyen', id: 482111897}]
       telefuelDMPeers = telefuelDMPeers.filter(function(peer) {
         return peer.id != myID
@@ -1712,7 +1733,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
           AppChatsManager.saveApiChats(result.chats)
           angular.forEach(result.chats, function (chat) {
             if (-chat.id === peer.id) {
-              console.log('=====> FOUND MISSING CHAT', chat.ID)
+              console.log('=====> FOUND MISSING CHAT', chat.id)
               if (!$scope.foundPinnedPeers.some(function (p) {
                 return p.id === -chat.id
               })) {
