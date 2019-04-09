@@ -1279,6 +1279,7 @@ angular.module('myApp.directives', ['myApp.filters'])
       var sendFormWrap = $('.im_send_form_wrap', element)[0]
       var headWrap = $('.tg_page_head')[0]
       var footer = $('.footer_wrap')[0]
+      var alertBanner = $('.pre-order-alert')[0]
       var sendForm = $('.im_send_form', element)[0]
       var moreNotified = false
       var lessNotified = false
@@ -1610,13 +1611,17 @@ angular.module('myApp.directives', ['myApp.filters'])
         if (!pinnedPanelEl || !pinnedPanelEl.offsetHeight) {
           pinnedPanelEl = $('.im_history_pinned_panel', element)[0]
         }
+        if (!alertBanner || !alertBanner.offsetHeight) {
+          alertBanner = $('.pre-order-alert')[0]
+        }
 
         var footerHeight = footer ? footer.offsetHeight : 0
         if (footerHeight) {
           footerHeight++ // Border bottom
         }
         var pinnedHeight = pinnedPanelEl && pinnedPanelEl.offsetHeight || 0
-        var historyH = $($window).height() - bottomPanelWrap.offsetHeight - (headWrap ? headWrap.offsetHeight : 48) - footerHeight - pinnedHeight
+        var alertBannerHeight = alertBanner && alertBanner.offsetHeight || 0
+        var historyH = $($window).height() - bottomPanelWrap.offsetHeight - (headWrap ? headWrap.offsetHeight : 48) - footerHeight - pinnedHeight - alertBannerHeight
 
         $(historyWrap).css({
           height: historyH
