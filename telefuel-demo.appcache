@@ -52,6 +52,10 @@ img/icons/ProfileIcons.png
 img/icons/ProfileIcons_2x.png
 img/icons/icon.svg
 img/icons/telefuel-logo.jpg
+js/lib/bin_utils.js
+js/lib/crypto_worker.js
+js/lib/polyfill.js
+js/lib/push_worker.js
 img/placeholders/DialogListAvatarSystem@2x.png
 img/placeholders/Fave.png
 img/placeholders/GroupAvatar1@2x.png
@@ -70,10 +74,6 @@ img/placeholders/UserAvatar7@2x.png
 img/placeholders/UserAvatar8@2x.png
 img/placeholders/VideoThumbConversation.gif
 img/placeholders/VideoThumbModal.gif
-js/lib/bin_utils.js
-js/lib/crypto_worker.js
-js/lib/polyfill.js
-js/lib/push_worker.js
 js/locales/de-de.json
 js/locales/en-us.json
 js/locales/es-es.json
@@ -100,4 +100,4 @@ http://*
 https://*
 *
 
-# hash: 61dfa51dff23a6f5ff2c6c74fa097069128d73d26f3fe4c048dd6d0d4208a1e9
+# hash: 6c997e196eabb04877be87f07c302adbaa9a91ef3357e24eea5dac09ced7eafc
