@@ -50,7 +50,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
       WebPushApiManager.forceUnsubscribe()
     })
 
-    var options = {dcID: 2, createNetworker: true}
+    var options = {dcID: 1, createNetworker: true}
     var countryChanged = false
     var selectedCountry = false
 
@@ -1146,17 +1146,14 @@ angular.module('myApp.controllers', ['myApp.i18n'])
             $scope.telefuelGroupsPeerIDs.forEach(findMissingPeers)
             $scope.telefuelDMPeerIDs.forEach(findMissingPeers)
 
-            console.log('=====> MISSING PEERS', missingPeers)
             $scope.foundPinnedPeers = []
             missingPeers.forEach(function(peer) {
-              console.log('=====> FINDING PEER', peer)
               MtpApiManager.invokeApi('contacts.search', {q: peer.name, limit: 10}).then(function (result) {
                 AppUsersManager.saveApiUsers(result.users)
                 AppChatsManager.saveApiChats(result.chats)
                 angular.forEach(result.results, function (peerFound) {
                   var peerID = AppPeersManager.getPeerID(peerFound)
                   if (peerID === peer.id) {
-                    console.log('=====> FOUND MISSING PEER', peerID)
                     // CREATE DIALOG AND PUSH HERE
                     $scope.foundPinnedPeers.push({
                       id: peerID,
@@ -1167,7 +1164,6 @@ angular.module('myApp.controllers', ['myApp.i18n'])
                 })
                 angular.forEach(result.users, function (user) {
                   if (user.id === peer.id) {
-                    console.log('=====> FOUND MISSING USER', peer)
                     // CREATE DIALOG AND PUSH HERE
                     $scope.foundPinnedPeers.push({
                       id: user.id,
@@ -1648,7 +1644,6 @@ angular.module('myApp.controllers', ['myApp.i18n'])
       } else {
         searchMessages = false
       }
-        console.log("=====> LOADING DIALOGS")
       loadDialogs(true)
     }
 
@@ -1704,7 +1699,6 @@ angular.module('myApp.controllers', ['myApp.i18n'])
       if ($scope.noUsers) {
         query = '%pg ' + query
       }
-      console.log('=====> GET CONVERSATIONS', query)
       return AppMessagesManager.getConversations(query, offsetIndex).then(function (result) {
         if (curJump != jump) {
           return $q.reject()
@@ -1730,13 +1724,11 @@ angular.module('myApp.controllers', ['myApp.i18n'])
       }
       $scope.foundPinnedPeers = []
       $scope.telefuelGroupsPeerIDs.concat($scope.telefuelDMPeerIDs).forEach(function(peer) {
-        console.log('=====> FINDING PEER', peer)
         MtpApiManager.invokeApi('contacts.search', {q: peer.name, limit: 10}).then(function (result) {
           AppUsersManager.saveApiUsers(result.users)
           AppChatsManager.saveApiChats(result.chats)
           angular.forEach(result.chats, function (chat) {
             if (-chat.id === peer.id) {
-              console.log('=====> FOUND MISSING CHAT', chat.id)
               if (!$scope.foundPinnedPeers.some(function (p) {
                 return p.id === -chat.id
               })) {
@@ -1751,7 +1743,6 @@ angular.module('myApp.controllers', ['myApp.i18n'])
           angular.forEach(result.results, function (peerFound) {
             var peerID = AppPeersManager.getPeerID(peerFound)
             if (peerID === peer.id) {
-              console.log('=====> FOUND MISSING PEER', peerID)
               if (!$scope.foundPinnedPeers.some(function (p) {
                 return p.id === peerID
               })) {
@@ -1765,7 +1756,6 @@ angular.module('myApp.controllers', ['myApp.i18n'])
           })
           angular.forEach(result.users, function (user) {
             if (user.id === peer.id) {
-              console.log('=====> FOUND MISSING USER', peer)
               if (!$scope.foundPinnedPeers.some(function (p) {
                 return p.id === user.id
               })) {
