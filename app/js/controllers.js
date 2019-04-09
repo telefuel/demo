@@ -92,6 +92,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
       }
       var wasCountry = $scope.credentials.phone_country
       MtpApiManager.invokeApi('help.getNearestDc', {}, {dcID: 1, createNetworker: true}).then(function (nearestDcResult) {
+        console.log('=====> NEAREST DC', nearestDcResult)
         if (wasCountry == $scope.credentials.phone_country) {
           selectPhoneCountryByIso2(nearestDcResult.country)
         }
