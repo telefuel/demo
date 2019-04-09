@@ -4,6 +4,9 @@ CACHE:
 favicon.ico
 favicon_unread.ico
 service_worker.js
+css/app.css
+css/desktop.css
+css/mobile.css
 img/Manytabs.png
 img/Manytabs_2x.png
 img/Telefuel-Social-Meta.png
@@ -30,9 +33,6 @@ img/telefuel.svg
 js/app.js
 nacl/mtproto_crypto.nmf
 nacl/mtproto_crypto.pexe
-css/app.css
-css/desktop.css
-css/mobile.css
 img/changelog/card_wecandoit.png
 img/icons/AboutLogos.png
 img/icons/AboutLogos_2x.png
@@ -100,4 +100,4 @@ http://*
 https://*
 *
 
-# hash: 87e7a081c61f8541911e9294e13eacc1ac66c14b21ff5a11206ed92a814b544c
+# hash: 61dfa51dff23a6f5ff2c6c74fa097069128d73d26f3fe4c048dd6d0d4208a1e9
