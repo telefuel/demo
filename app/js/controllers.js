@@ -15,7 +15,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
   .controller('AppWelcomeController', function ($scope, $location, MtpApiManager, ChangelogNotifyService, LayoutSwitchService) {
     MtpApiManager.getUserID().then(function (id) {
       if (id) {
-        $location.url('/telefuel')
+        $location.url('/telefuel?p=@telefuel')
         return
       }
       if (location.protocol == 'http:' &&
@@ -37,7 +37,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
 
     MtpApiManager.getUserID().then(function (id) {
       if (id) {
-        $location.url('/telefuel')
+        $location.url('/telefuel?p=@telefuel')
         return
       }
       if (location.protocol == 'http:' &&
@@ -168,7 +168,7 @@ angular.module('myApp.controllers', ['myApp.i18n'])
       })
       $timeout.cancel(nextTimeout)
 
-      $location.url('/telefuel')
+      $location.url('/telefuel?p=@telefuel')
     }
 
     $scope.sendCode = function () {
