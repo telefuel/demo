@@ -6,7 +6,7 @@
   "single-instance": true,
   "dom_storage_quota": 40,
   "window": {
-    "title": "Telegram",
+    "title": "Telefuel",
     "icon": "app/img/icons/icon128.png",
     "toolbar": false,
     "frame": true,
