@@ -7,6 +7,7 @@ service_worker.js
 css/app.css
 css/desktop.css
 css/mobile.css
+js/app.js
 img/Manytabs.png
 img/Manytabs_2x.png
 img/Telefuel-Social-Meta.png
@@ -30,9 +31,19 @@ img/personal.jpg
 img/personal.png
 img/sound_a.mp3
 img/telefuel.svg
-js/app.js
 nacl/mtproto_crypto.nmf
 nacl/mtproto_crypto.pexe
+js/lib/bin_utils.js
+js/lib/crypto_worker.js
+js/lib/polyfill.js
+js/lib/push_worker.js
+js/locales/de-de.json
+js/locales/en-us.json
+js/locales/es-es.json
+js/locales/it-it.json
+js/locales/nl-nl.json
+js/locales/pt-br.json
+js/locales/ru-ru.json
 img/changelog/card_wecandoit.png
 img/icons/AboutLogos.png
 img/icons/AboutLogos_2x.png
@@ -70,17 +81,6 @@ img/placeholders/UserAvatar7@2x.png
 img/placeholders/UserAvatar8@2x.png
 img/placeholders/VideoThumbConversation.gif
 img/placeholders/VideoThumbModal.gif
-js/lib/bin_utils.js
-js/lib/crypto_worker.js
-js/lib/polyfill.js
-js/lib/push_worker.js
-js/locales/de-de.json
-js/locales/en-us.json
-js/locales/es-es.json
-js/locales/it-it.json
-js/locales/nl-nl.json
-js/locales/pt-br.json
-js/locales/ru-ru.json
 vendor/closure/long.js
 vendor/cryptoJS/crypto.js
 vendor/jsbn/jsbn_combined.js
@@ -100,4 +100,4 @@ http://*
 https://*
 *
 
-# hash: 9e431de2be20bce643f6c8a6ef3ee86b845fbdcd224aae5d094624957fe6c6ae
+# hash: a179dd4d93fc0552b1952a9351fc04d4903c2fade6afe27701ea80931168a95a
